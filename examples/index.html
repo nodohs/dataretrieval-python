@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; dataretrieval 0.1.dev1+g4dc9f6a68 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=bb1e5188"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using the waterdata module to pull data from the USGS Water Data APIs" href="WaterData_demo.html" />
+    <link rel="prev" title="Data Portals" href="../userguide/dataportals.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            dataretrieval
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../meta/installing.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/index.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction-to-the-waterdata-module-of-dataretrieval">Introduction to the <code class="docutils literal notranslate"><span class="pre">waterdata</span></code> module of <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="WaterData_demo.html">Using the <code class="docutils literal notranslate"><span class="pre">waterdata</span></code> module to pull data from the USGS Water Data APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#simple-uses-of-the-dataretrieval-package">Simple uses of the <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code> package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="readme_examples.html">Examples from the Readme file on retrieving NWIS data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="siteinfo_examples.html">Retrieving site information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#example-notebooks-from-hydroshare">Example Notebooks from Hydroshare</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_DailyValues_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_dv()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_GroundwaterLevels_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_gwlevels()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_Measurements_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_discharge_measurements()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_ParameterCodes_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_pmcodes()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_Peaks_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_discharge_peaks()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_Ratings_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_ratings()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_SiteInfo_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_info()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_SiteInventory_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">what_sites()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_Statistics_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_stats()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_UnitValues_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_iv()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_WaterSamples_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_samples()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_WaterUse_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_water_use()</span></code> Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-dataretrieval-to-obtain-nation-trends-in-peak-annual-streamflow">Using <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code> to obtain nation trends in peak annual streamflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwisdemo01.html">National trends in peak annual streamflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwisdemo01.html#Plotting-the-results">Plotting the results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#duplicating-the-r-dataretrieval-vignettes-functionality">Duplicating the R <code class="docutils literal notranslate"><span class="pre">dataRetrieval</span></code> vignettes functionality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rvignettes.html">Python Equivalents to R Vignette Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rvignettes.html#Embedded-Metadata">Embedded Metadata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../meta/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meta/license.html">License and Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">dataretrieval</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
+<section id="introduction-to-the-waterdata-module-of-dataretrieval">
+<h2>Introduction to the <code class="docutils literal notranslate"><span class="pre">waterdata</span></code> module of <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code><a class="headerlink" href="#introduction-to-the-waterdata-module-of-dataretrieval" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">waterdata</span></code> module will replace the <code class="docutils literal notranslate"><span class="pre">nwis</span></code> module as the primary
+set of data download functions for USGS water data. This Jupyter notebook
+covers a basic introduction to module functions and usage.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="WaterData_demo.html">Using the <code class="docutils literal notranslate"><span class="pre">waterdata</span></code> module to pull data from the USGS Water Data APIs</a></li>
+</ul>
+</div>
+</section>
+<section id="simple-uses-of-the-dataretrieval-package">
+<h2>Simple uses of the <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code> package<a class="headerlink" href="#simple-uses-of-the-dataretrieval-package" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme_examples.html">Examples from the Readme file on retrieving NWIS data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="siteinfo_examples.html">Retrieving site information</a></li>
+</ul>
+</div>
+</section>
+<section id="example-notebooks-from-hydroshare">
+<h2>Example Notebooks from Hydroshare<a class="headerlink" href="#example-notebooks-from-hydroshare" title="Link to this heading"></a></h2>
+<p>A set of Jupyter Notebooks with Python code examples on how to use the
+<code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code> package are available on the <a class="reference external" href="https://www.hydroshare.org/resource/c97c32ecf59b4dff90ef013030c54264/">Hydroshare</a> platform.
+We provide executed versions of these notebooks below; to download the
+<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> files for your own use, either visit the <a class="reference external" href="https://www.hydroshare.org/resource/c97c32ecf59b4dff90ef013030c54264/">Hydroshare</a> repository,
+or navigate to the <a class="reference external" href="https://github.com/DOI-USGS/dataretrieval-python/tree/main/demos/hydroshare">demos/hydroshare</a> subdirectory of the <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code>
+project repository.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="USGS_dataretrieval_DailyValues_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_dv()</span></code> Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="USGS_dataretrieval_GroundwaterLevels_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_gwlevels()</span></code> Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="USGS_dataretrieval_Measurements_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_discharge_measurements()</span></code> Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="USGS_dataretrieval_ParameterCodes_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_pmcodes()</span></code> Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="USGS_dataretrieval_Peaks_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_discharge_peaks()</span></code> Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="USGS_dataretrieval_Ratings_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_ratings()</span></code> Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="USGS_dataretrieval_SiteInfo_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_info()</span></code> Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="USGS_dataretrieval_SiteInventory_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">what_sites()</span></code> Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="USGS_dataretrieval_Statistics_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_stats()</span></code> Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="USGS_dataretrieval_UnitValues_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_iv()</span></code> Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="USGS_dataretrieval_WaterSamples_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_samples()</span></code> Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="USGS_dataretrieval_WaterUse_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_water_use()</span></code> Examples</a></li>
+</ul>
+</div>
+</section>
+<section id="using-dataretrieval-to-obtain-nation-trends-in-peak-annual-streamflow">
+<h2>Using <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code> to obtain nation trends in peak annual streamflow<a class="headerlink" href="#using-dataretrieval-to-obtain-nation-trends-in-peak-annual-streamflow" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nwisdemo01.html">National trends in peak annual streamflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nwisdemo01.html#Introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nwisdemo01.html#Setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nwisdemo01.html#Basic-usage">Basic usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nwisdemo01.html#Preparing-the-regression">Preparing the regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nwisdemo01.html#Preparing-the-analysis">Preparing the analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nwisdemo01.html#Plotting-the-results">Plotting the results</a></li>
+</ul>
+</div>
+</section>
+<section id="duplicating-the-r-dataretrieval-vignettes-functionality">
+<h2>Duplicating the R <code class="docutils literal notranslate"><span class="pre">dataRetrieval</span></code> vignettes functionality<a class="headerlink" href="#duplicating-the-r-dataretrieval-vignettes-functionality" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some of the larger (e.g., state-wide) examples have been commented out
+in the interest of run-time for the notebook.</p>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="rvignettes.html">Python Equivalents to R Vignette Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rvignettes.html#Embedded-Metadata">Embedded Metadata</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../userguide/dataportals.html" class="btn btn-neutral float-left" title="Data Portals" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="WaterData_demo.html" class="btn btn-neutral float-right" title="Using the waterdata module to pull data from the USGS Water Data APIs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

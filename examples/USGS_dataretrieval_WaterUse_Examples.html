@@ -1,0 +1,1039 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USGS dataretrieval Python Package get_water_use() Examples &mdash; dataretrieval 0.1.dev1+g4dc9f6a68 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=bb1e5188"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="National trends in peak annual streamflow" href="nwisdemo01.html" />
+    <link rel="prev" title="USGS dataretrieval Python Package get_samples() Examples" href="USGS_dataretrieval_WaterSamples_Examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            dataretrieval
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../meta/installing.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/index.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction-to-the-waterdata-module-of-dataretrieval">Introduction to the <code class="docutils literal notranslate"><span class="pre">waterdata</span></code> module of <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#simple-uses-of-the-dataretrieval-package">Simple uses of the <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code> package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#example-notebooks-from-hydroshare">Example Notebooks from Hydroshare</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_DailyValues_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_dv()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_GroundwaterLevels_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_gwlevels()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_Measurements_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_discharge_measurements()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_ParameterCodes_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_pmcodes()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_Peaks_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_discharge_peaks()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_Ratings_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_ratings()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_SiteInfo_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_info()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_SiteInventory_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">what_sites()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_Statistics_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_stats()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_UnitValues_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_iv()</span></code> Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USGS_dataretrieval_WaterSamples_Examples.html">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_samples()</span></code> Examples</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_water_use()</span></code> Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Install-the-Package">Install the Package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Basic-Usage">Basic Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Interpreting-the-Result">Interpreting the Result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#using-dataretrieval-to-obtain-nation-trends-in-peak-annual-streamflow">Using <code class="docutils literal notranslate"><span class="pre">dataretrieval</span></code> to obtain nation trends in peak annual streamflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#duplicating-the-r-dataretrieval-vignettes-functionality">Duplicating the R <code class="docutils literal notranslate"><span class="pre">dataRetrieval</span></code> vignettes functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../meta/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meta/license.html">License and Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">dataretrieval</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Examples</a></li>
+      <li class="breadcrumb-item active">USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_water_use()</span></code> Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/USGS_dataretrieval_WaterUse_Examples.nblink.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="USGS-dataretrieval-Python-Package-get_water_use()-Examples">
+<h1>USGS dataretrieval Python Package <code class="docutils literal notranslate"><span class="pre">get_water_use()</span></code> Examples<a class="headerlink" href="#USGS-dataretrieval-Python-Package-get_water_use()-Examples" title="Link to this heading"></a></h1>
+<p>This notebook provides examples of using the Python dataretrieval package to retrieve water use data. The dataretrieval package provides a collection of functions to get data from the USGS National Water Information System (NWIS) and other online sources of hydrology and water quality data, including the United States Environmental Protection Agency (USEPA).</p>
+<section id="Install-the-Package">
+<h2>Install the Package<a class="headerlink" href="#Install-the-Package" title="Link to this heading"></a></h2>
+<p>Use the following code to install the package if it doesn’t exist already within your Jupyter Python environment.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>dataretrieval
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: dataretrieval in /home/runner/.local/lib/python3.12/site-packages (0.1.dev1+g4dc9f6a68)
+Requirement already satisfied: requests in /usr/lib/python3/dist-packages (from dataretrieval) (2.31.0)
+Requirement already satisfied: pandas&lt;3.0.0,&gt;=2.0.0 in /home/runner/.local/lib/python3.12/site-packages (from dataretrieval) (2.3.3)
+Requirement already satisfied: numpy&gt;=1.26.0 in /home/runner/.local/lib/python3.12/site-packages (from pandas&lt;3.0.0,&gt;=2.0.0-&gt;dataretrieval) (2.4.3)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/lib/python3/dist-packages (from pandas&lt;3.0.0,&gt;=2.0.0-&gt;dataretrieval) (2.8.2)
+Requirement already satisfied: pytz&gt;=2020.1 in /usr/lib/python3/dist-packages (from pandas&lt;3.0.0,&gt;=2.0.0-&gt;dataretrieval) (2024.1)
+Requirement already satisfied: tzdata&gt;=2022.7 in /home/runner/.local/lib/python3.12/site-packages (from pandas&lt;3.0.0,&gt;=2.0.0-&gt;dataretrieval) (2025.3)
+</pre></div></div>
+</div>
+<p>Load the package so you can use it along with other packages used in this notebook.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataretrieval</span> <span class="kn">import</span> <span class="n">nwis</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Basic-Usage">
+<h2>Basic Usage<a class="headerlink" href="#Basic-Usage" title="Link to this heading"></a></h2>
+<p>The dataretrieval package has several functions that allow you to retrieve data from different web services. This examples uses the <code class="docutils literal notranslate"><span class="pre">get_water_use()</span></code> function to retrieve water use data. The following arguments are supported:</p>
+<p>Arguments (Additional arguments, if supplied, will be used as query parameters)</p>
+<ul class="simple">
+<li><p><strong>years</strong> (Listlike): List or comma delimited string of years. Must be years ending in 0 or 5 because water use data is only reported during these years, or “ALL”, which retrieves all available years</p></li>
+<li><p><strong>state</strong> (string): Full name, abbreviation or id for a state for which to retrieve data</p></li>
+<li><p><strong>county</strong> (string or list of strings): County IDs from county lookup or “ALL”</p></li>
+<li><p><strong>categories</strong> (Listlike): List or comma delimited string of two-letter category abbreviations</p></li>
+</ul>
+<section id="Example-1:-Retrieve-all-water-use-data-for-a-state">
+<h3>Example 1: Retrieve all water use data for a state<a class="headerlink" href="#Example-1:-Retrieve-all-water-use-data-for-a-state" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pennsylvania</span> <span class="o">=</span> <span class="n">nwis</span><span class="o">.</span><span class="n">get_water_use</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;PA&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Retrieved &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pennsylvania</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; water use records.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Retrieved 55 water use records.
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Interpreting-the-Result">
+<h2>Interpreting the Result<a class="headerlink" href="#Interpreting-the-Result" title="Link to this heading"></a></h2>
+<p>The result of calling the <code class="docutils literal notranslate"><span class="pre">get_water_use()</span></code> function is an object that contains a Pandas data frame object and an associated metadata object. The Pandas data frame contains the water use data.</p>
+<p>Once you’ve got the data frame, there’s several useful things you can do to explore the data.</p>
+<p>Display the data frame as a table. The example request was for a whole state. The data returned are organized by county and year, with summary data reported every 5 years.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">pennsylvania</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>&lt;!DOCTYPE html&gt;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>&lt;head&gt;</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>&lt;meta charset="UTF-8" /&gt;</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>&lt;meta name="viewport" content="width=devic...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>&lt;link rel="icon" id="favicon" href="/nwaa-...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>&lt;title&gt;U.S. Geological Survey&lt;/title&gt;</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>&lt;meta name="description" content=""&gt;</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>&lt;!--</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>NWDC Google Tag Manager</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>- NWDC Pixel</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>- DAP Pixel</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>--&gt;</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[]...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>new Date().getTime(),event:'gtm.js'});va...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>j=d.createElement(s),dl=l!='dataLayer'?'...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>'https://www.googletagmanager.com/gtm.js...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>})(window,document,'script','dataLayer',...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>&lt;/script&gt;</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>&lt;!-- End Google Tag Manager --&gt;</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>&lt;!-- CHS Google Tag Manager --&gt;</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[]...</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>new Date().getTime(),event:'gtm.js'});va...</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>j=d.createElement(s),dl=l!='dataLayer'?'...</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>'https://www.googletagmanager.com/gtm.js...</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>})(window,document,'script','dataLayer',...</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>&lt;/script&gt;</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>&lt;!-- End Google Tag Manager --&gt;</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>&lt;!-- START Google Font - Source Sans Pro --&gt;</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>&lt;link rel="preconnect" href="https://fon...</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>&lt;link rel="preconnect" href="https://fon...</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>&lt;link href="https://fonts.googleapis.com...</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>&lt;!-- END Google Font - Source Sans Pro --&gt;</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>&lt;script type="module" crossorigin src="/nw...</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>&lt;link rel="stylesheet" href="/nwaa-data/as...</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>&lt;/head&gt;</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>&lt;body&gt;</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>&lt;!-- NWDC Google Tag Manager (noscript) --&gt;</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>&lt;noscript&gt;</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>&lt;iframe src="https://www.googletagmanage...</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>height="0" width="0" style="display:no...</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>&lt;/iframe&gt;</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>&lt;/noscript&gt;</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>&lt;!-- End Google Tag Manager (noscript) --&gt;</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>&lt;!-- Google Tag Manager (noscript) --&gt;</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>&lt;noscript&gt;</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>&lt;iframe src="https://www.googletagmanage...</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>height="0" width="0" style="display:no...</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>&lt;/iframe&gt;</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>&lt;/noscript&gt;</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>&lt;!-- End Google Tag Manager (noscript) --&gt;</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>&lt;link rel="stylesheet" href="/nwaa-data/as...</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>&lt;div id="app"&gt;&lt;/div&gt;</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>&lt;script src="/nwaa-data/assets/uswds/js/us...</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>&lt;script src="/nwaa-data/assets/uswds/js/us...</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>&lt;/body&gt;</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>&lt;/html&gt;</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Show the data types of the columns in the resulting data frame.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">pennsylvania</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;!DOCTYPE html&gt;    object
+dtype: object
+</pre></div></div>
+</div>
+<section id="Example-2:-Retrieve-data-for-an-entire-state-for-certain-years">
+<h3>Example 2: Retrieve data for an entire state for certain years<a class="headerlink" href="#Example-2:-Retrieve-data-for-an-entire-state-for-certain-years" title="Link to this heading"></a></h3>
+<p>Returns data parsed by county - one row for each county for each year of interest rather than the entire state. Data are included for 5 year periods.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ohio</span> <span class="o">=</span> <span class="n">nwis</span><span class="o">.</span><span class="n">get_water_use</span><span class="p">(</span><span class="n">years</span><span class="o">=</span><span class="p">[</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">2005</span><span class="p">,</span> <span class="mi">2010</span><span class="p">],</span> <span class="n">state</span><span class="o">=</span><span class="s1">&#39;OH&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Retrieved &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ohio</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; water use records.&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">ohio</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Retrieved 55 water use records.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>&lt;!DOCTYPE html&gt;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>&lt;head&gt;</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>&lt;meta charset="UTF-8" /&gt;</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>&lt;meta name="viewport" content="width=devic...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>&lt;link rel="icon" id="favicon" href="/nwaa-...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>&lt;title&gt;U.S. Geological Survey&lt;/title&gt;</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>&lt;meta name="description" content=""&gt;</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>&lt;!--</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>NWDC Google Tag Manager</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>- NWDC Pixel</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>- DAP Pixel</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>--&gt;</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[]...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>new Date().getTime(),event:'gtm.js'});va...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>j=d.createElement(s),dl=l!='dataLayer'?'...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>'https://www.googletagmanager.com/gtm.js...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>})(window,document,'script','dataLayer',...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>&lt;/script&gt;</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>&lt;!-- End Google Tag Manager --&gt;</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>&lt;!-- CHS Google Tag Manager --&gt;</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[]...</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>new Date().getTime(),event:'gtm.js'});va...</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>j=d.createElement(s),dl=l!='dataLayer'?'...</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>'https://www.googletagmanager.com/gtm.js...</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>})(window,document,'script','dataLayer',...</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>&lt;/script&gt;</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>&lt;!-- End Google Tag Manager --&gt;</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>&lt;!-- START Google Font - Source Sans Pro --&gt;</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>&lt;link rel="preconnect" href="https://fon...</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>&lt;link rel="preconnect" href="https://fon...</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>&lt;link href="https://fonts.googleapis.com...</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>&lt;!-- END Google Font - Source Sans Pro --&gt;</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>&lt;script type="module" crossorigin src="/nw...</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>&lt;link rel="stylesheet" href="/nwaa-data/as...</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>&lt;/head&gt;</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>&lt;body&gt;</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>&lt;!-- NWDC Google Tag Manager (noscript) --&gt;</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>&lt;noscript&gt;</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>&lt;iframe src="https://www.googletagmanage...</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>height="0" width="0" style="display:no...</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>&lt;/iframe&gt;</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>&lt;/noscript&gt;</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>&lt;!-- End Google Tag Manager (noscript) --&gt;</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>&lt;!-- Google Tag Manager (noscript) --&gt;</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>&lt;noscript&gt;</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>&lt;iframe src="https://www.googletagmanage...</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>height="0" width="0" style="display:no...</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>&lt;/iframe&gt;</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>&lt;/noscript&gt;</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>&lt;!-- End Google Tag Manager (noscript) --&gt;</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>&lt;link rel="stylesheet" href="/nwaa-data/as...</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>&lt;div id="app"&gt;&lt;/div&gt;</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>&lt;script src="/nwaa-data/assets/uswds/js/us...</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>&lt;script src="/nwaa-data/assets/uswds/js/us...</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>&lt;/body&gt;</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>&lt;/html&gt;</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="Example-3:-Retrieve-two-specific-water-use-categories-for-an-entire-state">
+<h3>Example 3: Retrieve two specific water use categories for an entire state<a class="headerlink" href="#Example-3:-Retrieve-two-specific-water-use-categories-for-an-entire-state" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get water use data for livestock (LI) and irrigation (IT)</span>
+<span class="n">kansas</span> <span class="o">=</span> <span class="n">nwis</span><span class="o">.</span><span class="n">get_water_use</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;KS&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;IT&#39;</span><span class="p">,</span> <span class="s1">&#39;LI&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Retrieved &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">kansas</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39; water use records.&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">kansas</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Retrieved 55 water use records.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>&lt;!DOCTYPE html&gt;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>&lt;head&gt;</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>&lt;meta charset="UTF-8" /&gt;</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>&lt;meta name="viewport" content="width=devic...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>&lt;link rel="icon" id="favicon" href="/nwaa-...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>&lt;title&gt;U.S. Geological Survey&lt;/title&gt;</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>&lt;meta name="description" content=""&gt;</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>&lt;!--</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>NWDC Google Tag Manager</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>- NWDC Pixel</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>- DAP Pixel</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>--&gt;</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[]...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>new Date().getTime(),event:'gtm.js'});va...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>j=d.createElement(s),dl=l!='dataLayer'?'...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>'https://www.googletagmanager.com/gtm.js...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>})(window,document,'script','dataLayer',...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>&lt;/script&gt;</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>&lt;!-- End Google Tag Manager --&gt;</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>&lt;!-- CHS Google Tag Manager --&gt;</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[]...</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>new Date().getTime(),event:'gtm.js'});va...</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>j=d.createElement(s),dl=l!='dataLayer'?'...</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>'https://www.googletagmanager.com/gtm.js...</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>})(window,document,'script','dataLayer',...</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>&lt;/script&gt;</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>&lt;!-- End Google Tag Manager --&gt;</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>&lt;!-- START Google Font - Source Sans Pro --&gt;</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>&lt;link rel="preconnect" href="https://fon...</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>&lt;link rel="preconnect" href="https://fon...</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>&lt;link href="https://fonts.googleapis.com...</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>&lt;!-- END Google Font - Source Sans Pro --&gt;</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>&lt;script type="module" crossorigin src="/nw...</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>&lt;link rel="stylesheet" href="/nwaa-data/as...</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>&lt;/head&gt;</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>&lt;body&gt;</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>&lt;!-- NWDC Google Tag Manager (noscript) --&gt;</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>&lt;noscript&gt;</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>&lt;iframe src="https://www.googletagmanage...</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>height="0" width="0" style="display:no...</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>&lt;/iframe&gt;</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>&lt;/noscript&gt;</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>&lt;!-- End Google Tag Manager (noscript) --&gt;</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>&lt;!-- Google Tag Manager (noscript) --&gt;</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>&lt;noscript&gt;</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>&lt;iframe src="https://www.googletagmanage...</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>height="0" width="0" style="display:no...</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>&lt;/iframe&gt;</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>&lt;/noscript&gt;</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>&lt;!-- End Google Tag Manager (noscript) --&gt;</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>&lt;link rel="stylesheet" href="/nwaa-data/as...</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>&lt;div id="app"&gt;&lt;/div&gt;</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>&lt;script src="/nwaa-data/assets/uswds/js/us...</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>&lt;script src="/nwaa-data/assets/uswds/js/us...</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>&lt;/body&gt;</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>&lt;/html&gt;</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="USGS_dataretrieval_WaterSamples_Examples.html" class="btn btn-neutral float-left" title="USGS dataretrieval Python Package get_samples() Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nwisdemo01.html" class="btn btn-neutral float-right" title="National trends in peak annual streamflow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

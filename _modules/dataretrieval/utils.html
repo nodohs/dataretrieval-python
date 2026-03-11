@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dataretrieval.utils &mdash; dataretrieval 0.1.dev1+g4dc9f6a68 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=bb1e5188"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            dataretrieval
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../meta/installing.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../meta/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../meta/license.html">License and Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">dataretrieval</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dataretrieval.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dataretrieval.utils</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Useful utilities for data munging.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">import</span> <span class="nn">dataretrieval</span>
+<span class="kn">from</span> <span class="nn">dataretrieval.codes</span> <span class="kn">import</span> <span class="n">tz</span>
+
+
+<div class="viewcode-block" id="to_str">
+<a class="viewcode-back" href="../../reference/utils.html#dataretrieval.utils.to_str">[docs]</a>
+<span class="k">def</span> <span class="nf">to_str</span><span class="p">(</span><span class="n">listlike</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Translates list-like objects into strings.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    listlike: list-like object</span>
+<span class="sd">        An object that is a list, or list-like</span>
+<span class="sd">        (e.g., ``pandas.core.series.Series``)</span>
+<span class="sd">    delimiter: string, optional</span>
+<span class="sd">        The delimiter that is placed between entries in listlike when it is</span>
+<span class="sd">        turned into a string. Default value is a comma.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    listlike: string</span>
+<span class="sd">        The listlike object as string separated by the delimiter</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; dataretrieval.utils.to_str([1, &quot;a&quot;, 2])</span>
+<span class="sd">        &#39;1,a,2&#39;</span>
+
+<span class="sd">        &gt;&gt;&gt; dataretrieval.utils.to_str([0, 10, 42], delimiter=&quot;+&quot;)</span>
+<span class="sd">        &#39;0+10+42&#39;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">listlike</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">listlike</span><span class="p">])</span>
+
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">listlike</span><span class="p">)</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">series</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">listlike</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">listlike</span><span class="p">)</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">indexes</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">Index</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">listlike</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">listlike</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">listlike</span></div>
+
+
+
+<div class="viewcode-block" id="format_datetime">
+<a class="viewcode-back" href="../../reference/utils.html#dataretrieval.utils.format_datetime">[docs]</a>
+<span class="k">def</span> <span class="nf">format_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">date_field</span><span class="p">,</span> <span class="n">time_field</span><span class="p">,</span> <span class="n">tz_field</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a datetime field from separate date, time, and</span>
+<span class="sd">    time zone fields.</span>
+
+<span class="sd">    Assumes ISO 8601.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df: ``pandas.DataFrame``</span>
+<span class="sd">        A data frame containing date, time, and timezone fields.</span>
+<span class="sd">    date_field: string</span>
+<span class="sd">        Name of date column in df.</span>
+<span class="sd">    time_field: string</span>
+<span class="sd">        Name of time column in df.</span>
+<span class="sd">    tz_field: string</span>
+<span class="sd">        Name of time zone column in df.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    df: ``pandas.DataFrame``</span>
+<span class="sd">        The data frame with a formatted &#39;datetime&#39; column</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># create a datetime index from the columns in qwdata response</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">tz_field</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">tz_field</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">date_field</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="n">time_field</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="n">tz_field</span><span class="p">],</span>
+        <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;ISO8601&quot;</span><span class="p">,</span>
+        <span class="n">utc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># if there are any incomplete dates, warn the user</span>
+    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Warning: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> incomplete dates found, &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;consider setting datetime_index to False.&quot;</span><span class="p">,</span>
+            <span class="ne">UserWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="BaseMetadata">
+<a class="viewcode-back" href="../../reference/utils.html#dataretrieval.utils.BaseMetadata">[docs]</a>
+<span class="k">class</span> <span class="nc">BaseMetadata</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for metadata.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    url : str</span>
+<span class="sd">        Response url</span>
+<span class="sd">    query_time: datetme.timedelta</span>
+<span class="sd">        Response elapsed time</span>
+<span class="sd">    header: requests.structures.CaseInsensitiveDict</span>
+<span class="sd">        Response headers</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BaseMetadata.__init__">
+<a class="viewcode-back" href="../../reference/utils.html#dataretrieval.utils.BaseMetadata.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates a standard set of metadata informed by the response.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        response: Response</span>
+<span class="sd">            Response object from requests module</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        md: :obj:`dataretrieval.utils.BaseMetadata`</span>
+<span class="sd">            A ``dataretrieval`` custom :obj:`dataretrieval.utils.BaseMetadata` object.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># These are built from the API response</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query_time</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">elapsed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+        <span class="c1"># # not sure what statistic_info is</span>
+        <span class="c1"># self.statistic_info = None</span>
+
+        <span class="c1"># # disclaimer seems to be only part of importWaterML1</span>
+        <span class="c1"># self.disclaimer = None</span>
+
+    <span class="c1"># These properties are to be set by `nwis` or `wqp`-specific metadata classes.</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">site_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;site_info must be implemented by utils.BaseMetadata children&quot;</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">variable_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;variable_info must be implemented by utils.BaseMetadata children&quot;</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="BaseMetadata.__repr__">
+<a class="viewcode-back" href="../../reference/utils.html#dataretrieval.utils.BaseMetadata.__repr__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(url=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="query">
+<a class="viewcode-back" href="../../reference/utils.html#dataretrieval.utils.query">[docs]</a>
+<span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">ssl_check</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Send a query.</span>
+
+<span class="sd">    Wrapper for requests.get that handles errors, converts listed</span>
+<span class="sd">    query parameters to comma separated strings, and returns response.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    url: string</span>
+<span class="sd">        URL to query</span>
+<span class="sd">    payload: dict</span>
+<span class="sd">        query parameters passed to ``requests.get``</span>
+<span class="sd">    delimiter: string</span>
+<span class="sd">        delimiter to use with lists</span>
+<span class="sd">    ssl_check: bool</span>
+<span class="sd">        If True, check SSL certificates, if False, do not check SSL,</span>
+<span class="sd">        default is True</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    string: query response</span>
+<span class="sd">        The response from the API query ``requests.get`` function call.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">payload</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">payload</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_str</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">)</span>
+    <span class="c1"># for index in range(len(payload)):</span>
+    <span class="c1">#    key, value = payload[index]</span>
+    <span class="c1">#    payload[index] = (key, to_str(value))</span>
+
+    <span class="c1"># define the user agent for the query</span>
+    <span class="n">user_agent</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;user-agent&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;python-dataretrieval/</span><span class="si">{</span><span class="n">dataretrieval</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">user_agent</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="n">ssl_check</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">400</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Bad Request, check that your parameters are correct. URL: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Page Not Found Error. May be the result of an empty query. &quot;</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;URL: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">414</span><span class="p">:</span>
+        <span class="n">_reason</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">reason</span>
+        <span class="n">_example</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                    # n is the number of chunks to divide the query into </span><span class="se">\n</span>
+<span class="s2">                    split_list = np.array_split(site_list, n)</span>
+<span class="s2">                    data_list = []  # list to store chunk results in </span><span class="se">\n</span>
+<span class="s2">                    # loop through chunks and make requests </span><span class="se">\n</span>
+<span class="s2">                    for site_list in split_list: </span><span class="se">\n</span>
+<span class="s2">                        data = nwis.get_record(sites=site_list, service=&#39;dv&#39;, </span><span class="se">\n</span>
+<span class="s2">                                               start=start, end=end) </span><span class="se">\n</span>
+<span class="s2">                        data_list.append(data)  # append results to list&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Request URL too long. Modify your query to use fewer sites. &quot;</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;API response reason: </span><span class="si">{</span><span class="n">_reason</span><span class="si">}</span><span class="s2">. Pseudo-code example of how to &quot;</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;split your query: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">_example</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;No sites/data&quot;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">NoSitesError</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+<div class="viewcode-block" id="NoSitesError">
+<a class="viewcode-back" href="../../reference/utils.html#dataretrieval.utils.NoSitesError">[docs]</a>
+<span class="k">class</span> <span class="nc">NoSitesError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom error class used when selection criteria returns no sites/data.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="NoSitesError.__init__">
+<a class="viewcode-back" href="../../reference/utils.html#dataretrieval.utils.NoSitesError.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span></div>
+
+
+<div class="viewcode-block" id="NoSitesError.__str__">
+<a class="viewcode-back" href="../../reference/utils.html#dataretrieval.utils.NoSitesError.__str__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="s2">&quot;No sites/data found using the selection criteria specified in url: &quot;</span>
+            <span class="s2">&quot;</span><span class="si">{url}</span><span class="s2">&quot;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
